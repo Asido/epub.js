@@ -572,6 +572,24 @@ Contents.prototype.triggerSelectedEvent = function(selection){
   }
 };
 
+Contents.prototype.addClickListener = function () {
+    if (!this.document) {
+        return;
+    }
+    this.document.addEventListener("click", this.onClick.bind(this), false);
+}
+
+Contents.prototype.removeClickListener = function(){
+    if(!this.document) {
+        return;
+    }
+    this.document.removeEventListener("click", this.onClick, false);
+}
+
+Contents.prototype.onClick = function (e) {
+    this.trigger("clicked", e.target);
+}
+
 Contents.prototype.range = function(_cfi, ignoreClass){
   var cfi = new EpubCFI(_cfi);
   return cfi.toRange(this.document, ignoreClass);

@@ -495,6 +495,20 @@ Contents.prototype.addScript = function(src) {
   }.bind(this));
 };
 
+Contents.prototype.querySelector = function (selector) {
+    if (!this.document) {
+        return null;
+    }
+    return this.document.querySelector(selector);
+};
+
+Contents.prototype.querySelectorAll = function (selector) {
+    if (!this.document) {
+        return [];
+    }
+    return this.document.querySelectorAll(selector);
+};
+
 Contents.prototype.addEventListeners = function(){
   if(!this.document) {
     return;

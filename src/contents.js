@@ -567,7 +567,7 @@ Contents.prototype.triggerSelectedEvent = function(selection){
       // cfirange = this.section.cfiFromRange(range);
       cfirange = new EpubCFI(range, this.cfiBase).toString();
       this.trigger("selected", cfirange);
-      this.trigger("selectedRange", range);
+      this.trigger("selectedRange", { selection: selection, range: range });
     }
   }
 };

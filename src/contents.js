@@ -509,6 +509,10 @@ Contents.prototype.querySelectorAll = function (selector) {
     return this.document.querySelectorAll(selector);
 };
 
+Contents.prototype.document = function () {
+    return this.document;
+}
+
 Contents.prototype.addEventListeners = function(){
   if(!this.document) {
     return;

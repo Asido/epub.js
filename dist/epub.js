@@ -7007,6 +7007,24 @@ Contents.prototype.addScript = function(src) {
   }.bind(this));
 };
 
+Contents.prototype.querySelector = function (selector) {
+    if (!this.document) {
+        return null;
+    }
+    return this.document.querySelector(selector);
+};
+
+Contents.prototype.querySelectorAll = function (selector) {
+    if (!this.document) {
+        return [];
+    }
+    return this.document.querySelectorAll(selector);
+};
+
+Contents.prototype.document = function () {
+    return this.document;
+}
+
 Contents.prototype.addEventListeners = function(){
   if(!this.document) {
     return;
@@ -7065,10 +7083,28 @@ Contents.prototype.triggerSelectedEvent = function(selection){
       // cfirange = this.section.cfiFromRange(range);
       cfirange = new EpubCFI(range, this.cfiBase).toString();
       this.trigger("selected", cfirange);
-      this.trigger("selectedRange", range);
+      this.trigger("selectedRange", { selection: selection, range: range });
     }
   }
 };
+
+Contents.prototype.addClickListener = function () {
+    if (!this.document) {
+        return;
+    }
+    this.document.addEventListener("click", this.onClick.bind(this), false);
+}
+
+Contents.prototype.removeClickListener = function(){
+    if(!this.document) {
+        return;
+    }
+    this.document.removeEventListener("click", this.onClick, false);
+}
+
+Contents.prototype.onClick = function (e) {
+    this.trigger("clicked", e.target);
+}
 
 Contents.prototype.range = function(_cfi, ignoreClass){
   var cfi = new EpubCFI(_cfi);
